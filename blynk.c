@@ -116,6 +116,8 @@ blynk_err_t blynk_set_options(blynk_client_t *c, const blynk_options_t *opt) {
 		snprintf(s->opt.server, sizeof(s->opt.server), "%s:%s", default_server, default_port);
 	} else if (!memchr(s->opt.server, ':', sizeof(s->opt.server))) {
 		snprintf(s->opt.server, sizeof(s->opt.server), "%s:%s", opt->server, default_port);
+	} else {
+		snprintf(s->opt.server, sizeof(s->opt.server), "%s", opt->server);
 	}
 
 	if (!s->opt.ping_interval) {
