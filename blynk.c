@@ -388,7 +388,8 @@ static void set_disconnected(blynk_client_t *c, blynk_err_t reason, int code) {
 
 	xSemaphoreGive(c->state.mtx);
 
-	ESP_LOGW(tag, "disconnected, reason: %d, code: %d", reason, code);
+	// let the handler figure out if we want to print something
+	// ESP_LOGW(tag, "disconnected, reason: %d, code: %d", reason, code);
 
 	if (handler) handler(c, &ev, data);
 }
