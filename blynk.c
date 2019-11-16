@@ -48,7 +48,7 @@ SOFTWARE.
 #define DEFAULT_TIMEOUT 5000
 #define DEFAULT_RECONNECT_DELAY 5000
 
-#define QUEUE_SIZE 8
+#define QUEUE_SIZE 20
 #define BLYNK_TASK_PRIO 1
 #define BLYNK_TASK_STACK_SIZE (8*1024)
 
@@ -545,7 +545,7 @@ static void auth_cb(blynk_client_t *c, uint16_t status, void *data) {
 static void ping_cb(blynk_client_t *c, uint16_t status, void *data) {
 	if (status != BLYNK_STATUS_SUCCESS) {
 		if (status == BLYNK_STATUS_RESPONSE_TIMEOUT) {
-			set_disconnected(c, BLYNK_ERR_TIMEOUT, 0);
+			set_disconnected(c, BLYNK_ERR_TIMEOUT, 1);
 		} else {
 			set_disconnected(c, BLYNK_ERR_STATUS, status);
 		}
