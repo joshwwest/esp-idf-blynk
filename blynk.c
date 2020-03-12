@@ -753,6 +753,12 @@ static blynk_err_t blynk_loop(blynk_client_t *c) {
 					goto fail_1;
 				}
 
+				if (ctl.message.command == BLYNK_CMD_ANOVA_DISCONN) {
+					set_disconnected(c, BLYNK_ERR_CLOSED, 1); //subtype 1, requested to close
+					close(fd);
+					return BLYNK_OK;
+				}
+
 				ctl.message.id = id;
 			}
 

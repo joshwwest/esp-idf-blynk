@@ -94,6 +94,8 @@ enum {
 	BLYNK_CMD_DEBUG_PRINT     = 55,
 
 	BLYNK_CMD_EVENT_LOG       = 60,
+
+	BLYNK_CMD_ANOVA_DISCONN   = 250,
 };
 
 typedef enum {
