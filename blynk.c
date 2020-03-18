@@ -859,16 +859,17 @@ fail_0:
 
 static void blynk_task(void *arg) {
 	blynk_client_t *c = (blynk_client_t *)arg;
+	blynk_err_t ret_code = BLYNK_OK;
 
-	while (blynk_loop(c) == BLYNK_OK) {
+	while ( (ret_code=blynk_loop(c)) == BLYNK_OK) {
 		xSemaphoreTake(c->state.mtx, portMAX_DELAY);
 		unsigned int delay = c->state.opt.reconnect_delay;
 		xSemaphoreGive(c->state.mtx);
 
 		vTaskDelay(delay / portTICK_RATE_MS);
 	}
-
-	ESP_LOGE(tag, "terminating...");
+	ESP_LOGE(tag, "terminating... ret_code:%d", ret_code);
+	set_state(c, BLYNK_STATE_STOPPED);
 	vTaskDelete(NULL);
 }
 
