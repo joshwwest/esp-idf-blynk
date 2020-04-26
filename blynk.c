@@ -880,7 +880,7 @@ blynk_err_t blynk_start(blynk_client_t *c) {
 		return BLYNK_ERR_RUNNING;
 	}
 
-	if (!xTaskCreate(blynk_task, "BlynkTask", BLYNK_TASK_STACK_SIZE, c, BLYNK_TASK_PRIO, &c->state.task)) {
+	if (xTaskCreate(blynk_task, "BlynkTask", BLYNK_TASK_STACK_SIZE, c, BLYNK_TASK_PRIO, &c->state.task) != pdPASS) {
 		xSemaphoreGive(c->state.mtx);
 		return BLYNK_ERR_MEM;
 	}
